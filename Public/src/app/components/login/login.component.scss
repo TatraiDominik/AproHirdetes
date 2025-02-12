@@ -1,0 +1,42 @@
+/* A login-container és kártya beállítások változatlanok */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f5f5f5;
+  }
+  
+  mat-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.75);
+  }
+  
+  mat-card-title {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #7b1fa2;
+  }
+  
+  mat-label {
+    color: #7b1fa2;
+  }
+  
+  /* A következő rész használja a ::ng-deep-et a stílusok felülírásához */
+  ::ng-deep input {
+    color: #7b1fa2 !important; /* Szövegszín, pl. sötét szürke */
+  }
+  
+  ::ng-deep .mat-form-field-infix {
+    background-color: #f5f5f5 !important; /* Háttér szín beállítása, ha szükséges */
+  }
+  
+  /* További beállítások */
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  

@@ -1,0 +1,15 @@
+<mat-card class="ad-card">
+    <mat-card-header>
+      <mat-card-title>{{ ad.title }}</mat-card-title>
+      <mat-card-subtitle>{{ ad.category }} - {{ ad.date }}</mat-card-subtitle>
+    </mat-card-header>
+  
+    <img mat-card-image [src]="ad.image" alt="Image" />
+  
+    <mat-card-content>
+      <p>{{ ad.description }}</p>
+      <p><strong>Ár: </strong>{{ ad.price }} Ft</p>
+    </mat-card-content>
+  
+  </mat-card>
+  
