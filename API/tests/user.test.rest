@@ -1,0 +1,32 @@
+### Új felhasználó regisztráció
+POST http://localhost:3000/api/user/register
+Content-Type: application/json
+
+{
+    "name": "Tarr",
+    "email": "tarr@gmail.com",
+    "address": "Magyarország, Baja, Cigány utca 3",
+    "password": "Tarrmaci1"
+}
+### Új felhasználó regisztráció
+POST http://localhost:3000/api/user/register
+Content-Type: application/json
+
+{
+    "name": "Néger",
+    "email": "neger@gmail.com",
+    "address": "Neger utca 3",
+    "password": "negervagyok"
+}
+### Bejelentkezés
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+    "email":"tarr@gmail.com",
+    "password":"Tarrmaci1"
+}
+
+### Felhasználó törlése
+DELETE http://localhost:3000/api/user/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzkzNTkzMjgsImV4cCI6MTczOTM2MjkyOH0.np5u4ny2usUAOxDSUWca4g2XG3t5duyQ8Gqe1GgtTRE
