@@ -1,7 +1,7 @@
 ### Új hirdetés létrehozása
 POST http://localhost:3000/api/advertisement/addAd
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODA2NjMsImV4cCI6MTczOTc4NDI2M30.KpZx8XVPsE62tiTlmtTOLtcLmnDIlMETblgf0LlCXN0
+Content-Type: application/multipart/form-data
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODY1ODgsImV4cCI6MTczOTc5MDE4OH0.sZ_Z0lPGziAuPL3jzUpJbsy9k4_TWQifHinIhQTp4Sc
 
 {
     "userId": "2",
@@ -10,10 +10,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtY
     "title": "Brand new iPhone 15",
     "description": "Latest model, unused, 128GB",
     "price": 1200,
-    "image": "https://example.com/image.jpg"
+    "image": "H:/jo-tanulo-jo-sportolo-kovago-levente.jpeg"
 }
 
-### Összes hirdetés lekérése
+### Összes hirdetés lekéréses
 GET http://localhost:3000/api/advertisement
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODA2NjMsImV4cCI6MTczOTc4NDI2M30.KpZx8XVPsE62tiTlmtTOLtcLmnDIlMETblgf0LlCXN0
 
@@ -32,5 +32,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtY
 }
 
 ### Hirdetés törlése
-DELETE http://localhost:3000/api/advertisement/1
+DELETE http://localhost:3000/api/advertisement/3
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODA2NjMsImV4cCI6MTczOTc4NDI2M30.KpZx8XVPsE62tiTlmtTOLtcLmnDIlMETblgf0LlCXN0

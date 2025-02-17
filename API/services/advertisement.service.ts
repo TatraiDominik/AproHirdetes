@@ -12,7 +12,7 @@ const addNewAdvertisement = async (
     title: string, 
     description: string, 
     price: number, 
-    image: string
+    image: string 
 ) => {
     try {
         const foundUser = await userRepo.findOne({ where: { id: userId } });
@@ -25,7 +25,7 @@ const addNewAdvertisement = async (
             title,
             description,
             price,
-            image
+            image  
         });
 
         return await advertisementRepo.save(advertisement);
@@ -34,6 +34,7 @@ const addNewAdvertisement = async (
         throw new Error("Nem sikerült felvenni a hirdetést!");
     }
 };
+
 
 const updateAd = async (
     adId: string, 
