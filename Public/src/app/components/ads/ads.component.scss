@@ -16,12 +16,17 @@
   
   mat-card-subtitle {
     font-size: 14px;
-    color: #757575;
+    color: #7b1fa2;
   }
   
+  mat-card-title{
+    color: #7b1fa2;
+  }
+
   mat-card-content {
     font-size: 16px;
-    color: #aaaaaa;
+    color: #7b1fa2;
+    background-color: white;
   }
   
   mat-card-actions {
