@@ -4,6 +4,7 @@ import { appConfig } from './config/config';
 import { dataSource as db } from './config/database';
 import bodyParser from 'body-parser';
 import userRouter from './routes/user.router';
+import advertisementRouter from './routes/advertisement.router';
 
 const app = express();
 
@@ -11,7 +12,8 @@ app.use(cors());
 app.use(express.json());
 //app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/user', userRouter)
+app.use('/api/user', userRouter);
+app.use('/api/advertisement', advertisementRouter);
 app.use((req, res, next) => {
   console.log('Received headers:', req.headers);
   console.log('Received body:', req.body);

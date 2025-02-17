@@ -51,7 +51,7 @@ const updateUserProfile = async (
     name: string | undefined,
     password: string | undefined
 ) => {
-    const userRepository = dataSource.getRepository(User);
+    
 
     const user = await userRepository.findOne({
         where: { id: userId },
