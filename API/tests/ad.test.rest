@@ -1,0 +1,36 @@
+### Új hirdetés létrehozása
+POST http://localhost:3000/api/advertisement/addAd
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODA2NjMsImV4cCI6MTczOTc4NDI2M30.KpZx8XVPsE62tiTlmtTOLtcLmnDIlMETblgf0LlCXN0
+
+{
+    "userId": "2",
+    "date": "2025-02-17T12:00:00.000Z",
+    "category": "Electronics",
+    "title": "Brand new iPhone 15",
+    "description": "Latest model, unused, 128GB",
+    "price": 1200,
+    "image": "https://example.com/image.jpg"
+}
+
+### Összes hirdetés lekérése
+GET http://localhost:3000/api/advertisement
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODA2NjMsImV4cCI6MTczOTc4NDI2M30.KpZx8XVPsE62tiTlmtTOLtcLmnDIlMETblgf0LlCXN0
+
+### Egy adott hirdetés lekérése
+GET http://localhost:3000/api/advertisement/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODA2NjMsImV4cCI6MTczOTc4NDI2M30.KpZx8XVPsE62tiTlmtTOLtcLmnDIlMETblgf0LlCXN0
+
+### Hirdetés módosítása
+PATCH  http://localhost:3000/api/advertisement/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODA2NjMsImV4cCI6MTczOTc4NDI2M30.KpZx8XVPsE62tiTlmtTOLtcLmnDIlMETblgf0LlCXN0
+
+{
+    "title": "Updated iPhone 15",
+    "price": 1100
+}
+
+### Hirdetés törlése
+DELETE http://localhost:3000/api/advertisement/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGFyckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk3ODA2NjMsImV4cCI6MTczOTc4NDI2M30.KpZx8XVPsE62tiTlmtTOLtcLmnDIlMETblgf0LlCXN0
