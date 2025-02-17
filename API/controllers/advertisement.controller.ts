@@ -6,32 +6,43 @@ import {
     getAllAd, 
     getAdById 
 } from "../services/advertisement.service";
+import upload from "../middlewares/upload.middleware";
 
 
 const addAdvertisement = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
-    try {
-        const { userId, date, category, title, description, price, image }: 
-        { userId: string; date: Date; category: string; title: string; description: string; price: number; image: string } = req.body;
-
-        
-        const missingFields = [];
-        if (!userId) missingFields.push("userId");
-        if (!date) missingFields.push("date");
-        if (!category) missingFields.push("category");
-        if (!title) missingFields.push("title");
-        if (!description) missingFields.push("description");
-        if (!price) missingFields.push("price");
-        if (!image) missingFields.push("image");
-
-        if (missingFields.length > 0) {
-            return res.status(400).json({ message: "Hiányzó adatok!", missingFields });
+   
+    upload.single('image')(req, res, async (err: any) => {
+        if (err) {
+            return res.status(400).json({ message: err.message });
         }
-
-        const advertisement = await addNewAdvertisement(userId, date, category, title, description, price, image);
-        return res.status(201).json(advertisement);
-    } catch (error) {
-        next(error);
-    }
+    
+        console.log("Fájl elérési útja:", req.file?.path);  
+    
+        try {
+            const { userId, date, category, title, description, price, image }: 
+            { userId: string; date: Date; category: string; title: string; description: string; price: number, image: string } = req.body;
+    
+            const missingFields = [];
+            if (!userId) missingFields.push("userId");
+            if (!date) missingFields.push("date");
+            if (!category) missingFields.push("category");
+            if (!title) missingFields.push("title");
+            if (!description) missingFields.push("description");
+            if (!price) missingFields.push("price");
+            if (!image) missingFields.push("image");
+    
+            if (missingFields.length > 0) {
+                return res.status(400).json({ message: "Hiányzó adatok!", missingFields });
+            }
+    
+            const imageUrl = req.file?.path;  
+            const advertisement = await addNewAdvertisement(userId, date, category, title, description, price, imageUrl);
+            return res.status(201).json(advertisement);
+        } catch (error) {
+            next(error);
+        }
+    });
+    
 };
 
 
