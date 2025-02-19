@@ -106,7 +106,7 @@ export class AuthService {
       tap((response: any) => {
         this.setToken(response.token);
   
-        const userId = response.user?.userID;
+        const userId = response.user?.id;
         const userName = response.user?.name;
         const userAddress = response.user?.address;
         const userEmail = response.user?.email; 
