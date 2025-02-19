@@ -10,38 +10,39 @@
         </p>
     </div>
     <div class="w-full h-full flex flex-col justify-center content-center items-center"> 
-        <mat-card appearance="outlined" class="w-2/3 flex flex-col justify-center content-center items-center p-5 costum-card">
-            <mat-card-content class="w-full">  
+        <mat-card appearance="outlined" class="w-2/3 flex flex-col justify-center content-center items-center p-5 gap-4 costum-card">
+          <span class="text-2xl text-pink-600">Register</span>  
+          <mat-card-content class="w-full">  
                 <form class="example-form w-full">
+                    <!--Name-->
+                    <mat-form-field class="example-full-width w-full">
+                      <mat-label>Name</mat-label>
+                      <input type="text" matInput placeholder="Cuba Sándor">
+                    </mat-form-field>
+
                     <!--Email-->
                     <mat-form-field class="example-full-width w-full">
                       <mat-label>Email</mat-label>
-                      <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-                      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                        Please enter a valid email address
-                      </mat-error>
-                      <mat-error *ngIf="emailFormControl.hasError('required')">
-                        Email is <strong>required</strong>
-                      </mat-error>
+                      <input type="email" matInput placeholder="Ex. pat@example.com">
                     </mat-form-field>
 
                     <!--Password-->
                     <mat-form-field class="example-full-width w-full">
                         <mat-label>Password</mat-label>
-                        <input type="password" matInput [formControl]="passwordFormControl" placeholder="kukikukiErted?231">
-                        <mat-error *ngIf="passwordFormControl.hasError('required')">
-                          Jelszo <strong>kotelezo</strong>
-                        </mat-error>
-                        <mat-error *ngIf="passwordFormControl.hasError('minlength')">
-                          Password must be at least 8 characters long
-                        </mat-error>
+                        <input type="password" matInput placeholder="kukikukiErted?231">
                     </mat-form-field>
+
+                    <!--Password-->
+                    <mat-form-field class="example-full-width w-full">
+                      <mat-label>Confirm Password</mat-label>
+                      <input type="password" matInput placeholder="MegerositettkukikukiErted?231">
+                  </mat-form-field>
                 </form>
             </mat-card-content>
             <div class="flex justify-between flex-wrap">
                 <button mat-fab extended>
-                  <mat-icon>login</mat-icon>
-                  Log in
+                  <mat-icon>how_to_reg</mat-icon>
+                  Register
                 </button>
             </div>
         </mat-card>
