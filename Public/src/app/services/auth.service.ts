@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http'; // Ezt hozzáadjuk
-import { Observable } from 'rxjs'; // Ezt is hozzáadjuk
-import { tap } from 'rxjs/operators'; // A 'tap' operátor importálása
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private server = 'http://localhost:3000/api'; // API alap URL, amihez hozzáférsz a login kérésekhez
+  private server = 'http://localhost:3000/api'; 
 
   constructor(private http: HttpClient) {}
 
@@ -21,10 +20,15 @@ export class AuthService {
   private userNameSubject = new BehaviorSubject<string | null>(this.getUserName());
   userName$ = this.userNameSubject.asObservable();
 
-  private userEmailSubject = new BehaviorSubject<string | null>(this.getUserEmail());
-  userEmail$ = this.userEmailSubject.asObservable();
+  private userAddressSubject = new BehaviorSubject<string | null>(this.getUserAddress());
+  userAddress$ = this.userAddressSubject.asObservable(); 
 
-  // Token mentése a localStorage-ba
+  private emailSubject = new BehaviorSubject<string | null>(this.getUserEmail()); 
+  userEmail$ = this.emailSubject.asObservable();
+
+  private roleSubject = new BehaviorSubject<string | null>(this.getUserRole()); 
+  userRole$ = this.roleSubject.asObservable();
+
   setToken(token: string) {
     if (typeof window !== 'undefined') {
       localStorage.setItem('token', token);
@@ -33,7 +37,6 @@ export class AuthService {
     }
   }
 
-  // Token lekérése
   getToken(): string | null {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('token');
@@ -41,91 +44,100 @@ export class AuthService {
     return null;
   }
 
-  // Felhasználói adatok mentése (id, name, email)
-  setUserData(userId: string, name: string, email: string) {
+  setUserData(userId: string, name: string, address: string, email: string, role: string) {
     if (typeof window !== 'undefined') {
-      console.log("Felhasználói adatok mentése:", { userId, name, email });
+      console.log("Felhasználói adatok mentése:", { userId, name, address, email, role });
       localStorage.setItem('userId', userId);
       localStorage.setItem('username', name);
-      localStorage.setItem('useremail', email);
+      localStorage.setItem('userAddress', address);
+      localStorage.setItem('email', email);
+      localStorage.setItem('role', role);  
       this.userIdSubject.next(userId);
       this.userNameSubject.next(name);
-      this.userEmailSubject.next(email);
+      this.userAddressSubject.next(address);
+      this.emailSubject.next(email);
+      this.roleSubject.next(role);
     }
   }
 
-  // Felhasználó neve lekérése
   getUserName(): string | null {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('username');
-    }
-    return null;
+    return typeof window !== 'undefined' ? localStorage.getItem('username') : null;
   }
 
-  // Felhasználó emailje lekérése
-  getUserEmail(): string | null {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('useremail');
-    }
-    return null;
+  getUserAddress(): string | null { 
+    return typeof window !== 'undefined' ? localStorage.getItem('userAddress') : null;
   }
 
-  // Ellenőrzi, hogy be van-e jelentkezve
+  getUserEmail(): string | null { 
+    return typeof window !== 'undefined' ? localStorage.getItem('email') : null;
+  }
+
+  getUserRole(): string | null { 
+    return typeof window !== 'undefined' ? localStorage.getItem('role') : null;
+  }
+
   isLoggedIn(): boolean {
     return this.getToken() !== null;
   }
 
-  // Admin státusz ellenőrzése (ha admin státuszt kell kezelni, ezt később bővítheted)
   isAdmin(): boolean {
-    return this.getUserName() === 'admin';
+    return this.getUserRole() === 'admin';
   }
 
-  // Kilépés (logout)
   logout() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
       localStorage.removeItem('username');
-      localStorage.removeItem('useremail');
+      localStorage.removeItem('userAddress');
+      localStorage.removeItem('email');
+      localStorage.removeItem('role');
       this.isLoggedInSubject.next(false);
       this.userNameSubject.next(null);
+      this.userAddressSubject.next(null);
+      this.emailSubject.next(null);
+      this.roleSubject.next(null);
       this.triggerAuthUpdate(); 
     }
   }
 
-  // Bejelentkezés
   login(userData: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.server}/user/login`, userData).pipe(
       tap((response: any) => {
-        // Token mentése
         this.setToken(response.token);
-
-        // API válaszból való adatok kinyerése
-        const userId = response.user?.id;  // Az id-t használjuk
+  
+        const userId = response.user?.userID;
         const userName = response.user?.name;
-        const userEmail = response.user?.email;
+        const userAddress = response.user?.address;
+        const userEmail = response.user?.email; 
+        const userRole = response.user?.role;  
 
-        console.log("Kapott felhasználói adatok:", { userId, userName, userEmail });
+        console.log("Kapott felhasználói adatok:", { userId, userName, userAddress, userEmail, userRole });
 
-        // Ha az adatok elérhetők, elmentjük őket
-        if (userId && userName && userEmail) {
-          this.setUserData(userId, userName, userEmail);
+        if (userId && userName && userAddress && userEmail && userRole) { 
+          this.setUserData(userId, userName, userAddress, userEmail, userRole);
         }
       })
     );
   }
 
-  // Felhasználói ID lekérése
-  getUserId(): string | null {
-    if (typeof window !== 'undefined') {
-      const userId = localStorage.getItem('userId');
-      console.log("Lekért userId a localStorage-ból:", userId);
-      return userId;
-    }
-    return null;
+  register(userData: { name: string; email: string; password: string; address: string }): Observable<any> {
+    return this.http.post(`${this.server}/user/register`, userData).pipe(
+      tap((response: any) => {
+        console.log("Regisztráció sikeres:", response);
+
+        if (response.token) {
+          this.setToken(response.token);
+          this.setUserData(response.user.userID, response.user.name, response.user.address, response.user.email, response.user.role);
+        }
+      })
+    );
   }
 
-  // JWT token dekódolása (nem szükséges a felhasználói adatokat az autentikációs folyamatban használni, mivel a szerver küldi vissza őket)
+  getUserId(): string | null {
+    return typeof window !== 'undefined' ? localStorage.getItem('userId') : null;
+  }
+
   private decodeToken(token: string): any {
     try {
       const payload = token.split('.')[1];
@@ -141,6 +153,8 @@ export class AuthService {
   triggerAuthUpdate() {
     this.isLoggedInSubject.next(this.isLoggedIn());
     this.userNameSubject.next(this.getUserName());
-    this.userEmailSubject.next(this.getUserEmail());
+    this.userAddressSubject.next(this.getUserAddress()); 
+    this.emailSubject.next(this.getUserEmail()); 
+    this.roleSubject.next(this.getUserRole()); 
   }
 }

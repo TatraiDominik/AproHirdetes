@@ -1,11 +1,36 @@
-<mat-toolbar color="primary">
-  <span class="logo">AprócskaHirdetésess</span>
-  
-  <span class="spacer"></span>
+<div class="kuki h-full flex flex-col">
+  <nav class="bg-zinc-800 text-zinc-200 flex flex-row justify-between items-center px-2 py-2 w-full">
+    <div>
+      <button class="text-zinc-200 flex flex-row justify-center items-center" mat-button [matMenuTriggerFor]="menu">
+        <mat-icon class="text-zinc-200">menu</mat-icon> 
+        <span class="text-zinc-200">Menü</span>
+      </button>
+    
+      <mat-menu #menu="matMenu">
+        <button *ngFor="let item of items" mat-menu-item (click)="item.label === 'Kijelentkezés' ? logout() : router.navigate([item.routerLink])">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </button>
+      </mat-menu>
+    </div>
+    <span class="text-lg">Apró hirdetések</span>
+  </nav>
 
-  <button mat-button [routerLink]="'/login'">Bejelentkezés</button>
-  <button mat-button [routerLink]="'/registration'">Regisztráció</button>
-  <button mat-button [routerLink]="'/ads'">Hirdetések</button>
-</mat-toolbar>
+  <div class="flex-1 overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<style>
+  .kuki {
+  background-image: url("assets/rm380-12.jpg");
+  background-size: cover; 
+  background-position: center; 
+  height: 100vh; 
+}
 
-<router-outlet></router-outlet>
+.flex-1 {
+  flex: 1; 
+  overflow: auto; 
+}
+
+</style>
