@@ -15,6 +15,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
+
 }
